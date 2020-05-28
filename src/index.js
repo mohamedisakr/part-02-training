@@ -22,5 +22,5 @@ const notes = [
     important: true,
   },
 ];
-render(<App notes={notes} />, document.querySelector("root"));
-// render(<App />, document.querySelector("#root"));
+
+render(<App notes={notes} />, document.querySelector("#root"));
