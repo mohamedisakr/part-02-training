@@ -22,7 +22,6 @@ const App = () => {
       content: newNote,
       date: new Date().toISOString(),
       important: Math.random() < 0.5,
-      //   id: notes.length + 1,
     };
 
     axios.post("http://localhost:3001/notes", noteOject).then((response) => {
@@ -38,6 +37,17 @@ const App = () => {
 
   const toggleImportance = (event) => {
     setShowAll(!showAll);
+  };
+
+  const toggleImportanceOf = (id) => {
+    console.log(`importance of ${id} needs to be toggled`);
+    const url = `http://localhost:3001/notes/${id}`;
+    const noteObject = notes.find((note) => note.id === id);
+    const changedNote = { ...noteObject, important: !noteObject.important };
+
+    axios.put(url, changedNote).then((response) => {
+      setNotes(notes.map((note) => (note.id !== id ? note : response.data)));
+    });
   };
 
   const notesToShow = showAll
@@ -57,7 +67,11 @@ const App = () => {
       </div>
       <ul>
         {notesToShow.map((note) => (
-          <Note key={note.id} note={note} />
+          <Note
+            key={note.id}
+            note={note}
+            toggleImportance={() => toggleImportanceOf(note.id)}
+          />
         ))}
       </ul>
       <form onSubmit={addNote}>
