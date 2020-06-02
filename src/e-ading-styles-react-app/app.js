@@ -4,6 +4,7 @@ import noteService from "../services/notes";
 // import { getAll, create, update } from "../services/notes";
 import Note from "./components/note";
 import Notification from "./components/notification";
+import Footer from "./components/footer";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -90,6 +91,7 @@ const App = () => {
         <input type="text" placeholder={newNote} onChange={handleNoteChange} />
         <button type="submit">Save</button>
       </form>
+      <Footer />
     </div>
   );
 };
